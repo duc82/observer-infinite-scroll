@@ -6,7 +6,7 @@ This is a React component that enables infinite scrolling functionality in your 
 
 To use this component in your React project, you can install it via npm:
 
-```
+```bash
 npm install observer-infinite-scroll
 ```
 
@@ -14,19 +14,19 @@ npm install observer-infinite-scroll
 
 To use the infinite scroll component in your application, you can import it and include it in your JSX code like this:
 
-```
-import InfiniteScroll from 'observer-infinite-scroll';
+```tsx
+import InfiniteScroll from "observer-infinite-scroll";
 
 <InfiniteScroll
   fetchMore={fetchMore}
   hasMore={hasMore}
   loader={<p>Loading...</p>}
   endMessage={<p>No more items to load.</p>}
-  >
-  {data.map(item => (
+>
+  {data.map((item) => (
     <div key={item.id}>{item.name}</div>
   ))}
-</InfiniteScroll>
+</InfiniteScroll>;
 ```
 
 In this example, `fetchMore` is a function to load more items, and `hasMore` is a boolean flag indicating whether there are more items to load. The `loader` prop is optional and can be used to display a loading indicator while more items are being loaded.
