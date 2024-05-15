@@ -15,18 +15,30 @@ npm install observer-infinite-scroll
 To use the infinite scroll component in your application, you can import it and include it in your JSX code like this:
 
 ```tsx
+import React, { useState } from "react";
 import InfiniteScroll from "observer-infinite-scroll";
 
-<InfiniteScroll
-  fetchMore={fetchMore}
-  hasMore={hasMore}
-  loader={<p>Loading...</p>}
-  endMessage={<p>No more items to load.</p>}
->
-  {data.map((item) => (
-    <div key={item.id}>{item.name}</div>
-  ))}
-</InfiniteScroll>;
+const App = () => {
+  const [data, setData] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchMore = () => {
+    // Load more items here
+  };
+
+  return (
+    <InfiniteScroll
+      fetchMore={fetchMore}
+      hasMore={hasMore}
+      loader={<p>Loading...</p>}
+      endMessage={<p>No more items to load.</p>}
+    >
+      {data.map((item) => (
+        <div key={item.id}>{item.name}</div>
+      ))}
+    </InfiniteScroll>
+  );
+};
 ```
 
 In this example, `fetchMore` is a function to load more items, and `hasMore` is a boolean flag indicating whether there are more items to load. The `loader` prop is optional and can be used to display a loading indicator while more items are being loaded.
@@ -43,6 +55,7 @@ The `InfiniteScroll` component accepts the following props:
 - `endMessage`: An optional message to display when there are no more items to load.
   Defaults to `<p>No more items to load.</p>`.
 - `threshold`: An optional threshold value to trigger the `fetchMore` function before reaching the bottom of the scroll container. The default value is `0.8`.
+- `position`: An optional position value to set the scroll container's position. The default value is `bottom`.
 - `className`: An optional class name to apply to the scroll container.
 - `style`: An optional style object to apply to the scroll container.
 
