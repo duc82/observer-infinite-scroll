@@ -65,7 +65,7 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.1.5
+ * @version 1.1.6
  */
 const InfiniteScroll = ({
   fetchMore,
@@ -111,9 +111,9 @@ const InfiniteScroll = ({
 
   return (
     <div style={style} className={className}>
-      {position === "top" && children}
-      {hasMore ? <div ref={ref}>{loader}</div> : endMessage}
       {position === "bottom" && children}
+      {hasMore ? <div ref={ref}>{loader}</div> : endMessage}
+      {position === "top" && children}
     </div>
   );
 };
