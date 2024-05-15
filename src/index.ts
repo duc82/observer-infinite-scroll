@@ -1,3 +1,3 @@
-import InfiniteScroll from "./lib/InfiniteScroll";
+import InfiniteScroll from "./InfiniteScroll";
 
 export default InfiniteScroll;

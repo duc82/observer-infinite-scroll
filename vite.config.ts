@@ -7,7 +7,6 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   build: {
     sourcemap: true,
-    emptyOutDir: true,
     lib: {
       entry: path.resolve(__dirname, "./src/index.ts"),
       name: "react-infinite-scroll",
@@ -24,5 +23,10 @@ export default defineConfig({
     },
   },
 
-  plugins: [react(), dts({ insertTypesEntry: true, include: ["./src/lib"] })],
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+    }),
+  ],
 });
