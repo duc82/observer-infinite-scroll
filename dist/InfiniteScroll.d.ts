@@ -18,14 +18,14 @@ export interface InfiniteScrollProps {
      * @optional
      * @default <p>Loading...</p>
      */
-    loader?: JSX.Element;
+    loader?: JSX.Element | null;
     /**
      * An optional message to display when there are no more items to load.
      * @property {JSX.Element} [endMessage]
      * @optional
      * @default <p>No more items to load.</p>
      */
-    endMessage?: JSX.Element;
+    endMessage?: JSX.Element | null;
     /**
      * An optional threshold value to trigger the `fetchMore` function before reaching the bottom of the scroll container.
      * @property {number} [threshold]
@@ -63,7 +63,7 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.1.6
+ * @version 1.1.7
  */
-declare const InfiniteScroll: ({ fetchMore, hasMore, loader, endMessage, threshold, position, className, style, children, }: InfiniteScrollProps) => JSX.Element;
+declare const InfiniteScroll: React.ForwardRefExoticComponent<InfiniteScrollProps & React.RefAttributes<HTMLDivElement>>;
 export default InfiniteScroll;
