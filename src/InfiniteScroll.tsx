@@ -1,18 +1,24 @@
 "use client";
-import React, { useState, useRef, useEffect, forwardRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export interface InfiniteScrollProps {
   /** A `function` to load more items
    * @property {Function} fetchMore
-   * @return {void}
+   * @return {void | Promise<void>}
    * @requires `true`
    */
-  fetchMore: () => void;
+  fetchMore: () => void | Promise<void>;
   /** A `boolean` value to determine if there are more items to load
    * @property {boolean} hasMore
    * @requires `true`
    */
   hasMore: boolean;
+  /**
+   * The length of the data to be fetched.
+   * @property {number} dataLength
+   * @requires `true`
+   */
+  dataLength: number;
   /**
    * An optional loading indicator to display while more items are being loaded.
    * @property {JSX.Element} [loader]
@@ -65,62 +71,75 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.1.7
+ * @version 1.1.8
  */
-const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>(
-  (
-    {
-      fetchMore,
-      hasMore,
-      loader = <p>Loading...</p>,
-      endMessage = <p>No more items to load.</p>,
-      threshold = 0.8,
-      position = "bottom",
-      className,
-      style,
-      children,
-    },
-    ref
-  ): JSX.Element => {
-    const [isLoading, setIsLoading] = useState(false);
-    const fetchMoreRef = useRef<HTMLDivElement>(null);
+const InfiniteScroll = ({
+  fetchMore,
+  hasMore,
+  dataLength,
+  loader = <p>Loading...</p>,
+  endMessage = <p>No more items to load.</p>,
+  threshold = 0.8,
+  position = "bottom",
+  className,
+  style,
+  children,
+}: InfiniteScrollProps): JSX.Element => {
+  const [isLoading, setIsLoading] = useState(false);
+  const fetchMoreRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [prevContainerScrollHeight, setPrevContainerScrollHeight] = useState(0);
 
-    useEffect(() => {
-      const el = fetchMoreRef.current;
+  useEffect(() => {
+    let el = fetchMoreRef.current;
+    if (!el || isLoading || !hasMore) return;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !isLoading && hasMore) {
-            setIsLoading(true);
-            fetchMore();
+    const observer = new IntersectionObserver(
+      async (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsLoading(true);
+
+          const promise = fetchMore();
+          if (promise instanceof Promise) {
+            await promise;
           }
-        },
-        { threshold }
-      );
 
-      if (el) {
-        observer.observe(el);
-      }
-
-      return () => {
-        if (el) {
-          observer.unobserve(el);
+          setIsLoading(false);
+          setPrevContainerScrollHeight(containerRef.current?.scrollHeight || 0);
         }
-      };
-    }, [hasMore, isLoading, fetchMore, threshold]);
-
-    useEffect(() => {
-      setIsLoading(false);
-    }, [fetchMore]);
-
-    return (
-      <div ref={ref} style={style} className={className}>
-        {position === "bottom" && children}
-        {hasMore ? <div ref={fetchMoreRef}>{loader}</div> : endMessage}
-        {position === "top" && children}
-      </div>
+      },
+      { threshold }
     );
-  }
-);
+
+    observer.observe(el);
+
+    return () => {
+      observer.unobserve(el);
+    };
+  }, [hasMore, isLoading, fetchMore, threshold, position]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+
+    if (!container || position !== "top") return;
+
+    const prevScrollHeight = prevContainerScrollHeight;
+    const newScrollHeight = container.scrollHeight;
+    const newScrollTop = newScrollHeight - prevScrollHeight;
+
+    container.scrollTop = newScrollTop;
+  }, [position, dataLength]);
+
+  return (
+    <div ref={containerRef} style={style} className={className}>
+      {position === "bottom" && children}
+      <div ref={fetchMoreRef}>
+        {hasMore && isLoading && loader}
+        {!hasMore && endMessage}
+      </div>
+      {position === "top" && children}
+    </div>
+  );
+};
 
 export default InfiniteScroll;

@@ -3,15 +3,21 @@ import { default as React } from 'react';
 export interface InfiniteScrollProps {
     /** A `function` to load more items
      * @property {Function} fetchMore
-     * @return {void}
+     * @return {void | Promise<void>}
      * @requires `true`
      */
-    fetchMore: () => void;
+    fetchMore: () => void | Promise<void>;
     /** A `boolean` value to determine if there are more items to load
      * @property {boolean} hasMore
      * @requires `true`
      */
     hasMore: boolean;
+    /**
+     * The length of the data to be fetched.
+     * @property {number} dataLength
+     * @requires `true`
+     */
+    dataLength: number;
     /**
      * An optional loading indicator to display while more items are being loaded.
      * @property {JSX.Element} [loader]
@@ -63,7 +69,7 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.1.7
+ * @version 1.1.8
  */
-declare const InfiniteScroll: React.ForwardRefExoticComponent<InfiniteScrollProps & React.RefAttributes<HTMLDivElement>>;
+declare const InfiniteScroll: ({ fetchMore, hasMore, dataLength, loader, endMessage, threshold, position, className, style, children, }: InfiniteScrollProps) => JSX.Element;
 export default InfiniteScroll;
