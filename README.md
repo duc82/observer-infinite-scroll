@@ -30,7 +30,6 @@ const App = () => {
     <InfiniteScroll
       fetchMore={fetchMore}
       hasMore={hasMore}
-      dataLength={data.length}
       loader={<p>Loading...</p>}
       endMessage={<p>No more items to load.</p>}
     >
@@ -50,7 +49,6 @@ The `InfiniteScroll` component accepts the following props:
 
 - `fetchMore`: A function to load more items.
 - `hasMore`: A boolean flag indicating whether there are more items to load.
-- `dataLength`: The length of the data array. This is used to determine when to trigger the `fetchMore` function.
 - `children`: The items to display in the scroll container.
 - `loader`: An optional loading indicator to display while more items are being loaded.
   Defaults to `<p>Loading...</p>`.

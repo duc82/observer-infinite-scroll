@@ -14,12 +14,6 @@ export interface InfiniteScrollProps {
    */
   hasMore: boolean;
   /**
-   * The length of the data to be fetched.
-   * @property {number} dataLength
-   * @requires `true`
-   */
-  dataLength: number;
-  /**
    * An optional loading indicator to display while more items are being loaded.
    * @property {JSX.Element} [loader]
    * @optional
@@ -71,12 +65,11 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.1.8
+ * @version 1.1.9
  */
 const InfiniteScroll = ({
   fetchMore,
   hasMore,
-  dataLength,
   loader = <p>Loading...</p>,
   endMessage = <p>No more items to load.</p>,
   threshold = 0.8,
@@ -91,7 +84,7 @@ const InfiniteScroll = ({
   const [prevContainerScrollHeight, setPrevContainerScrollHeight] = useState(0);
 
   useEffect(() => {
-    let el = fetchMoreRef.current;
+    const el = fetchMoreRef.current;
     if (!el || isLoading || !hasMore) return;
 
     const observer = new IntersectionObserver(
@@ -105,7 +98,11 @@ const InfiniteScroll = ({
           }
 
           setIsLoading(false);
-          setPrevContainerScrollHeight(containerRef.current?.scrollHeight || 0);
+          if (position === "top") {
+            setPrevContainerScrollHeight(
+              containerRef.current?.scrollHeight || 0
+            );
+          }
         }
       },
       { threshold }
@@ -128,7 +125,7 @@ const InfiniteScroll = ({
     const newScrollTop = newScrollHeight - prevScrollHeight;
 
     container.scrollTop = newScrollTop;
-  }, [position, dataLength]);
+  }, [position, children, prevContainerScrollHeight]);
 
   return (
     <div ref={containerRef} style={style} className={className}>
