@@ -13,12 +13,6 @@ export interface InfiniteScrollProps {
      */
     hasMore: boolean;
     /**
-     * The length of the data to be fetched.
-     * @property {number} dataLength
-     * @requires `true`
-     */
-    dataLength: number;
-    /**
      * An optional loading indicator to display while more items are being loaded.
      * @property {JSX.Element} [loader]
      * @optional
@@ -69,7 +63,7 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.1.8
+ * @version 1.2.0
  */
-declare const InfiniteScroll: ({ fetchMore, hasMore, dataLength, loader, endMessage, threshold, position, className, style, children, }: InfiniteScrollProps) => JSX.Element;
+declare const InfiniteScroll: ({ fetchMore, hasMore, loader, endMessage, threshold, position, className, style, children, }: InfiniteScrollProps) => JSX.Element;
 export default InfiniteScroll;
