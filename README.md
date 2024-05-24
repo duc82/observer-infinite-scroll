@@ -54,7 +54,7 @@ The `InfiniteScroll` component accepts the following props:
   Defaults to `<p>Loading...</p>`.
 - `endMessage`: An optional message to display when there are no more items to load.
   Defaults to `<p>No more items to load.</p>`.
-- `threshold`: An optional threshold value to trigger the `fetchMore` function before reaching the bottom of the scroll container. The default value is `0.8`.
+- `options`: An optional object to configure the `IntersectionObserver` options. The default value is `{ root: null, rootMargin: "100px 0px 100px 0", threshold: 0}`.
 - `position`: An optional position value to set the scroll container's position. The default value is `bottom`.
 - `className`: An optional class name to apply to the scroll container.
 - `style`: An optional style object to apply to the scroll container.

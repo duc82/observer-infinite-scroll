@@ -27,12 +27,12 @@ export interface InfiniteScrollProps {
      */
     endMessage?: JSX.Element | null;
     /**
-     * An optional threshold value to trigger the `fetchMore` function before reaching the bottom of the scroll container.
-     * @property {number} [threshold]
+     * An optional options object to pass to the IntersectionObserver constructor.
+     * @property {IntersectionObserverInit} [options]
      * @optional
-     * @default 0.8
+     * @default { root: null, rootMargin: "100px 0px 100px 0", threshold: 0}
      */
-    threshold?: number;
+    options?: IntersectionObserverInit;
     /**
      * An optional position value to set the scroll container's position.
      * @property {"top" | "bottom"} [position]
@@ -63,7 +63,34 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.2.0
+ * @version 1.2.1
+ * @example
+ * ```tsx
+ * import React, { useState } from "react";
+ * import InfiniteScroll from "observer-infinite-scroll";
+ *
+ * const App = () => {
+ *   const [data, setData] = useState([]);
+ *   const [hasMore, setHasMore] = useState(true);
+ *
+ *   const fetchMore = () => {
+ *     // Load more items here
+ *   };
+ *
+ *   return (
+ *     <InfiniteScroll
+ *       fetchMore={fetchMore}
+ *       hasMore={hasMore}
+ *       loader={<p>Loading...</p>}
+ *       endMessage={<p>No more items to load.</p>}
+ *     >
+ *       {data.map((item) => (
+ *         <div key={item.id}>{item.name}</div>
+ *       ))}
+ *     </InfiniteScroll>
+ *   );
+ * };
+ * ```
  */
-declare const InfiniteScroll: ({ fetchMore, hasMore, loader, endMessage, threshold, position, className, style, children, }: InfiniteScrollProps) => JSX.Element;
+declare const InfiniteScroll: React.ForwardRefExoticComponent<InfiniteScrollProps & React.RefAttributes<HTMLDivElement>>;
 export default InfiniteScroll;
