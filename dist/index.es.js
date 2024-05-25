@@ -1,47 +1,47 @@
-import c, { forwardRef as I, useState as v, useRef as d, useEffect as R, useLayoutEffect as L, useImperativeHandle as h } from "react";
-const C = I(
+import l, { forwardRef as R, useState as v, useRef as d, useEffect as L, useLayoutEffect as h, useImperativeHandle as y } from "react";
+const P = R(
   ({
     fetchMore: u,
-    hasMore: o,
-    loader: H = /* @__PURE__ */ c.createElement("p", null, "Loading..."),
-    endMessage: T = /* @__PURE__ */ c.createElement("p", null, "No more items to load."),
-    options: f = { rootMargin: "100px 0px 100px 0px" },
+    hasMore: c,
+    loader: H = /* @__PURE__ */ l.createElement("p", null, "Loading..."),
+    endMessage: T = /* @__PURE__ */ l.createElement("p", null, "No more items to load."),
+    options: i,
     position: r = "bottom",
     className: b,
     style: E,
-    children: p
+    children: f
   }, S) => {
-    const [s, m] = v(!1), g = d(null), t = d(null), [a, w] = v({
+    const [m, p] = v(!1), g = d(null), t = d(null), [s, w] = v({
       scrollHeight: 0,
       scrollTop: 0
     });
-    return R(() => {
+    return L(() => {
       const e = g.current;
-      if (!e || s || !o)
+      if (!e || m || !c)
         return;
-      const n = new IntersectionObserver(async (i) => {
-        if (i[0].isIntersecting) {
-          m(!0);
-          const l = u();
-          l instanceof Promise && await l, m(!1), r === "top" && t.current && w({
+      const o = new IntersectionObserver(async (a) => {
+        if (a[0].isIntersecting) {
+          p(!0);
+          const n = u();
+          n instanceof Promise && await n, p(!1), r === "top" && t.current && w({
             scrollHeight: t.current.scrollHeight,
             scrollTop: t.current.scrollTop
           });
         }
-      }, f);
-      return n.observe(e), () => {
-        n.unobserve(e);
+      }, i);
+      return o.observe(e), () => {
+        o.unobserve(e);
       };
-    }, [o, s, u, f, r]), L(() => {
+    }, [c, m, u, i, r]), h(() => {
       const e = t.current;
       if (!e || r !== "top")
         return;
-      const n = a.scrollHeight, i = a.scrollTop, l = e.scrollHeight, x = i + (l - n);
-      e.scrollTop = x;
-    }, [r, a]), h(S, () => t.current, []), /* @__PURE__ */ c.createElement("div", { ref: t, style: E, className: b }, r === "bottom" && p, /* @__PURE__ */ c.createElement("div", { ref: g }, o && s && H, !o && T), r === "top" && p);
+      const o = s.scrollHeight, a = s.scrollTop, n = e.scrollHeight, I = a + (n - o);
+      e.scrollTop = I;
+    }, [r, s]), y(S, () => t.current, []), /* @__PURE__ */ l.createElement("div", { ref: t, style: E, className: b }, r === "bottom" && f, /* @__PURE__ */ l.createElement("div", { ref: g }, c ? H : T), r === "top" && f);
   }
 );
 export {
-  C as default
+  P as default
 };
 //# sourceMappingURL=index.es.js.map
