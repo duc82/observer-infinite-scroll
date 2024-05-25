@@ -63,7 +63,7 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.2.1
+ * @version 1.2.3
  * @example
  * ```tsx
  * import React, { useState } from "react";
