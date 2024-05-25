@@ -72,7 +72,7 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.2.1
+ * @version 1.2.2
  * @example
  * ```tsx
  * import React, { useState } from "react";
@@ -108,7 +108,7 @@ const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>(
       hasMore,
       loader = <p>Loading...</p>,
       endMessage = <p>No more items to load.</p>,
-      options = { rootMargin: "100px 0px 100px 0" },
+      options = { rootMargin: "100px 0px 100px 0px" },
       position = "bottom",
       className,
       style,
