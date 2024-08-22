@@ -17,8 +17,7 @@ const P = R(
     });
     return L(() => {
       const e = g.current;
-      if (!e || m || !c)
-        return;
+      if (!e || m || !c) return;
       const o = new IntersectionObserver(async (a) => {
         if (a[0].isIntersecting) {
           p(!0);
@@ -34,8 +33,7 @@ const P = R(
       };
     }, [c, m, u, i, r]), h(() => {
       const e = t.current;
-      if (!e || r !== "top")
-        return;
+      if (!e || r !== "top") return;
       const o = s.scrollHeight, a = s.scrollTop, n = e.scrollHeight, I = a + (n - o);
       e.scrollTop = I;
     }, [r, s]), y(S, () => t.current, []), /* @__PURE__ */ l.createElement("div", { ref: t, style: E, className: b }, r === "bottom" && f, /* @__PURE__ */ l.createElement("div", { ref: g }, c ? H : T), r === "top" && f);

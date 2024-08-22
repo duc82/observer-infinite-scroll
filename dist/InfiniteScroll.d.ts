@@ -1,5 +1,4 @@
 import { default as React } from 'react';
-
 export interface InfiniteScrollProps {
     /** A `function` to load more items
      * @property {Function} fetchMore
@@ -63,7 +62,7 @@ export interface InfiniteScrollProps {
  * A component that renders a scroll container with infinite scroll capabilities.
  * @property {InfiniteScrollProps} props
  * @returns {JSX.Element}
- * @version 1.2.4
+ * @version 1.2.5
  * @example
  * ```tsx
  * import React, { useState } from "react";
